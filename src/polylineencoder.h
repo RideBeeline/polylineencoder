@@ -30,8 +30,9 @@
 #include <tuple>
 
 #include "math.h"
+#include "string.h"
 
-#define POLYLINE_MAX_LENGTH 50
+#define POLYLINE_MAX_LENGTH 500
 #define POLYLINE_POINT_MAX_LENGTH 12 //2 points 6chars per point
 
 //! Implements Google's polyline compression algorithm.
@@ -39,6 +40,11 @@
   For more details refer to the algorithm definition at
   https://developers.google.com/maps/documentation/utilities/polylinealgorithm
 */
+typedef struct {
+	float lat;
+	float lon;
+} Pointf;
+
 class PolylineEncoder
 {
 public:

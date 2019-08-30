@@ -97,14 +97,51 @@ int encodePoint( double lat, double lon, char *result)
 
         } while (hasNextChunk);
 
-        result[POLYLINE_POINT_MAX_LENGTH] =0; // debugging only
-        printf("encode result: %s \n", result);
-
         *p_value = lon;
     }
     result[r_len] = 0; // zero terminate string
 
     return r_len;
+}
+
+int encodeAll(Pointf *p_points, const size_t num_points, char *result, const size_t size_result)
+{
+    // The first segment: offset from (.0, .0)
+    double latPrev = .0;
+    double lonPrev = .0;
+
+    result[0] = 0; // make string size 0
+    size_t res_len = 0; // length of result string at the moment
+
+    int ret = 0; // number of points
+
+    // buffer to store point result in
+    char c_point[POLYLINE_POINT_MAX_LENGTH+1];
+
+    for(size_t pt = 0; pt<num_points; pt++)
+    {
+        int len = encodePoint(p_points[pt].lat - latPrev, p_points[pt].lon-lonPrev, c_point);  
+        if( len ) 
+        {
+            if(res_len + len >= size_result )
+            {   
+                //Error: ran out of space
+                printf("Error ran out of space\n");
+                return ret;
+            }
+
+            printf("result 2points: %s\n",c_point);
+
+            strcat(result, c_point);
+            res_len += len;
+            ret++;
+
+        }
+        latPrev = p_points[pt].lat;
+        lonPrev = p_points[pt].lon;
+    }
+
+    return ret;
 }
 
 int PolylineEncoder::encode(double value, char *result)
@@ -115,15 +152,14 @@ int PolylineEncoder::encode(double value, char *result)
 
 std::string PolylineEncoder::encode(const PolylineEncoder::Polyline &polyline)
 {
-    std::string result;
-
-    // The first segment: offset from (.0, .0)
-    double latPrev = .0;
-    double lonPrev = .0;
+       
 
     char c_polyline[POLYLINE_MAX_LENGTH+1];
 
-    char c_result[POLYLINE_POINT_MAX_LENGTH+1];
+    
+    size_t n_points = 0;
+
+    Pointf points[20];
 
 
 
@@ -132,18 +168,16 @@ std::string PolylineEncoder::encode(const PolylineEncoder::Polyline &polyline)
       const double lat = std::get<0>(tuple);
       const double lon = std::get<1>(tuple);
 
-      // Offset from the previous point
-      
-      encodePoint(lat - latPrev, lon-lonPrev,c_result);      
+      Pointf point = {(float)lat, (float)lon };
 
-      result.append(c_result);
+      points[n_points++] = point;
 
 
-      latPrev = lat;
-      lonPrev = lon;
     }
 
-    return result;
+    encodeAll(points, n_points, c_polyline, POLYLINE_MAX_LENGTH);
+
+    return std::string(c_polyline);
 }
 
 float PolylineEncoder::decode(const std::string &coords, size_t &i)

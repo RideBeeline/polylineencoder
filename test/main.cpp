@@ -127,7 +127,7 @@ static bool test5()
         const auto r_lat = std::get<0>(res[i]);
         const auto r_lon = std::get<1>(res[i]);
         
-        printf("p%u: org:(%10.6f, %10.6f) \tres:(%10.6f, %10.6f) \tdif:(%10.6f, %10.6f)\n", (unsigned int)i, o_lat, o_lon, r_lat, r_lon, o_lat-r_lat, o_lon-r_lon);
+        printf("p%u: \norg:(%10.6f, %10.6f) \n\tres:(%10.6f, %10.6f) \n\tdif:(%10.6f, %10.6f)\n\n", (unsigned int)i, o_lat, o_lon, r_lat, r_lon, o_lat-r_lat, o_lon-r_lon);
     
     }
 
