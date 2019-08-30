@@ -27,6 +27,7 @@
 #include <assert.h>
 #include <cmath>
 
+
 #include "polylineencoder.h"
 
 static const double s_presision   = 100000.0;
@@ -40,6 +41,7 @@ void PolylineEncoder::addPoint(double latitude, double longitude)
     assert(latitude <= 90.0 && latitude >= -90.0);
     assert(longitude <= 180.0 && longitude >= -180.0);
     
+    printf("added Point (%f,%f)\n",latitude, longitude);
     m_polyline.emplace_back(latitude, longitude);
 }
 
@@ -50,13 +52,18 @@ std::string PolylineEncoder::encode() const
 
 std::string PolylineEncoder::encode(double value)
 {
+    printf("encode initial value: %f \n", value);
     int32_t e5 = std::round(value * s_presision); // (2)
 
+    printf("encode step 2: e5=%i \n",e5);
     e5 <<= 1;                                     // (4)
 
+    printf("encode step 4: e5=%i \n",e5);
     if (value < 0) {
         e5 = ~e5;                                 // (5)
     }
+
+    printf("encode step 5: e5=%i \n",e5);
 
     bool hasNextChunk = false;
     std::string result;
@@ -75,6 +82,8 @@ std::string PolylineEncoder::encode(double value)
 
         e5 = nextChunk;
     } while (hasNextChunk);
+
+    printf("encode result: %s \n", result.c_str());
 
     return result;
 }
@@ -117,11 +126,15 @@ double PolylineEncoder::decode(const std::string &coords, size_t &i)
         shift += s_chunkSize;    // (7)
     } while (c >= s_6bitMask);
 
+    printf("decode before step 5: result=%i \n",result);
     if (result & 1) {
         result = ~result;        // (5)
     }
+
+    printf("decode before step 4: result=%i \n",result);
     result >>= 1;                // (4)
 
+    printf("decode result=%f \n",result / s_presision);
     // Convert to decimal value.
     return result / s_presision; // (2)
 }

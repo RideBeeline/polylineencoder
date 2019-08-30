@@ -36,8 +36,8 @@ static bool test(const std::string &testName,
         if (decodedPolyline.size() != polyline.size())
         {
             fprintf(stderr, "%s fails\n", testName.c_str());
-            fprintf(stderr, "\tDecode error: incorrect number of points: '%d' instead of '%d'\n",
-                    decodedPolyline.size(), polyline.size());
+            fprintf(stderr, "\tDecode error: incorrect number of points: '%u' instead of '%u'\n",
+                    (unsigned int)decodedPolyline.size(), (unsigned int)polyline.size());
             return false;
         }
 
