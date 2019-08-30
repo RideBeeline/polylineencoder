@@ -37,11 +37,11 @@
 class PolylineEncoder
 {
 public:
-    using Point = std::tuple<double, double>;
+    using Point = std::tuple<float, float>;
     using Polyline = std::vector<Point>;
 
     //! Adds new point with the given \p latitude and \p longitude for encoding.
-    void addPoint(double latitude, double longitude);
+    void addPoint(float latitude, float longitude);
 
     //! Encode the polyline according to the defined compression algorithm.
     /*!
@@ -63,10 +63,10 @@ public:
 
 private:
     //! Encodes a single value according to the compression algorithm.
-    static std::string encode(double value);
+    static std::string encode(float value);
 
     //! Decodes the current decimal value out of string.
-    static double decode(const std::string &coords, size_t &i);
+    static float decode(const std::string &coords, size_t &i);
 
     //! Store the polyline - the list of points.
     Polyline m_polyline;

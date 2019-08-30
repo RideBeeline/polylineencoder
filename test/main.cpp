@@ -75,9 +75,9 @@ static bool test2()
     PolylineEncoder encoder;
 
     // Poles and equator.
-    encoder.addPoint(-90.0, -180.0);
-    encoder.addPoint(.0, .0);
-    encoder.addPoint(90.0, 180.0);
+    encoder.addPoint(-90.0f, -180.0f);
+    encoder.addPoint(.0f, .0f);
+    encoder.addPoint(90.0f, 180.0f);
 
     return test("test2", encoder, "~bidP~fsia@_cidP_gsia@_cidP_gsia@");
 }
@@ -94,9 +94,9 @@ static bool test4()
 {
     // Coordinates from https://developers.google.com/maps/documentation/utilities/polylinealgorithm
     PolylineEncoder encoder;
-    encoder.addPoint(38.5, -120.2);
-    encoder.addPoint(40.7, -120.95);
-    encoder.addPoint(43.252, -126.453);
+    encoder.addPoint(38.5f, -120.2f);
+    encoder.addPoint(40.7f, -120.95f);
+    encoder.addPoint(43.252f, -126.453f);
 
     return test("test4", encoder, "_p~iF~ps|U_ulLnnqC_mqNvxq`@");
 }

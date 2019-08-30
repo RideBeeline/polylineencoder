@@ -30,16 +30,16 @@
 
 #include "polylineencoder.h"
 
-static const double s_presision   = 100000.0;
+static const float s_presision   = 100000.0f;
 static const int    s_chunkSize   = 5;
 static const int    s_asciiOffset = 63;
 static const int    s_5bitMask    = 0x1f; // 0b11111 = 31
 static const int    s_6bitMask    = 0x20; // 0b100000 = 32
 
-void PolylineEncoder::addPoint(double latitude, double longitude)
+void PolylineEncoder::addPoint(float latitude, float longitude)
 {
-    assert(latitude <= 90.0 && latitude >= -90.0);
-    assert(longitude <= 180.0 && longitude >= -180.0);
+    assert(latitude <= 90.0f && latitude >= -90.0f);
+    assert(longitude <= 180.0f && longitude >= -180.0f);
     
     printf("added Point (%f,%f)\n",latitude, longitude);
     m_polyline.emplace_back(latitude, longitude);
@@ -50,7 +50,7 @@ std::string PolylineEncoder::encode() const
     return encode(m_polyline);
 }
 
-std::string PolylineEncoder::encode(double value)
+std::string PolylineEncoder::encode(float value)
 {
     printf("encode initial value: %f \n", value);
     int32_t e5 = std::round(value * s_presision); // (2)
@@ -93,8 +93,8 @@ std::string PolylineEncoder::encode(const PolylineEncoder::Polyline &polyline)
     std::string result;
 
     // The first segment: offset from (.0, .0)
-    double latPrev = .0;
-    double lonPrev = .0;
+    float latPrev = .0;
+    float lonPrev = .0;
 
     for (const auto &tuple : polyline)
     {
@@ -112,7 +112,7 @@ std::string PolylineEncoder::encode(const PolylineEncoder::Polyline &polyline)
     return result;
 }
 
-double PolylineEncoder::decode(const std::string &coords, size_t &i)
+float PolylineEncoder::decode(const std::string &coords, size_t &i)
 {
     assert(i < coords.size());
 
