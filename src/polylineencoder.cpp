@@ -30,13 +30,13 @@
 
 #include "polylineencoder.h"
 
-static const float s_presision   = 100000.0f;
+static const double s_presision   = 100000.0f;
 static const int    s_chunkSize   = 5;
 static const int    s_asciiOffset = 63;
 static const int    s_5bitMask    = 0x1f; // 0b11111 = 31
 static const int    s_6bitMask    = 0x20; // 0b100000 = 32
 
-void PolylineEncoder::addPoint(float latitude, float longitude)
+void PolylineEncoder::addPoint(double latitude, double longitude)
 {
     assert(latitude <= 90.0f && latitude >= -90.0f);
     assert(longitude <= 180.0f && longitude >= -180.0f);
@@ -50,10 +50,10 @@ std::string PolylineEncoder::encode() const
     return encode(m_polyline);
 }
 
-std::string PolylineEncoder::encode(float value)
+int PolylineEncoder::encode(double value, char *result)
 {
     printf("encode initial value: %f \n", value);
-    int32_t e5 = std::round(value * s_presision); // (2)
+    int32_t e5 = round(value * s_presision); // (2)
 
     printf("encode step 2: e5=%i \n",e5);
     e5 <<= 1;                                     // (4)
@@ -66,7 +66,8 @@ std::string PolylineEncoder::encode(float value)
     printf("encode step 5: e5=%i \n",e5);
 
     bool hasNextChunk = false;
-    std::string result;
+
+    int r_len = 0; // length of result string so far
 
     // Split the value into 5-bit chunks and convert each of them to integer
     do {
@@ -78,14 +79,20 @@ std::string PolylineEncoder::encode(float value)
             charVar |= s_6bitMask;               // (8)
         }
         charVar += s_asciiOffset;                // (10)
-        result += (char)charVar;                 // (11)
+
+        result[r_len++] = (char)charVar;         // (11)
+
+        // Todo: check length!
 
         e5 = nextChunk;
+
     } while (hasNextChunk);
 
-    printf("encode result: %s \n", result.c_str());
+    result[r_len] = 0; // zero terminate string
 
-    return result;
+    printf("encode result: %s \n", result);
+
+    return r_len;
 }
 
 std::string PolylineEncoder::encode(const PolylineEncoder::Polyline &polyline)
@@ -93,17 +100,25 @@ std::string PolylineEncoder::encode(const PolylineEncoder::Polyline &polyline)
     std::string result;
 
     // The first segment: offset from (.0, .0)
-    float latPrev = .0;
-    float lonPrev = .0;
+    double latPrev = .0;
+    double lonPrev = .0;
+
+    char c_polyline[POLYLINE_MAX_LENGTH+1];
+    char c_result[POLYLINE_POINT_MAX_LENGTH+1];
+
+
 
     for (const auto &tuple : polyline)
     {
-      const auto lat = std::get<0>(tuple);
-      const auto lon = std::get<1>(tuple);
+      const double lat = std::get<0>(tuple);
+      const double lon = std::get<1>(tuple);
 
       // Offset from the previous point
-      result.append(encode(lat - latPrev));
-      result.append(encode(lon - lonPrev));
+      encode(lat - latPrev,c_result);      
+      result.append(c_result);
+
+      encode(lon - lonPrev,c_result);      
+      result.append(c_result);
 
       latPrev = lat;
       lonPrev = lon;

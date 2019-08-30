@@ -29,6 +29,11 @@
 #include <vector>
 #include <tuple>
 
+#include "math.h"
+
+#define POLYLINE_MAX_LENGTH 50
+#define POLYLINE_POINT_MAX_LENGTH 6
+
 //! Implements Google's polyline compression algorithm.
 /*!
   For more details refer to the algorithm definition at
@@ -37,11 +42,11 @@
 class PolylineEncoder
 {
 public:
-    using Point = std::tuple<float, float>;
+    using Point = std::tuple<double, double>;
     using Polyline = std::vector<Point>;
 
     //! Adds new point with the given \p latitude and \p longitude for encoding.
-    void addPoint(float latitude, float longitude);
+    void addPoint(double latitude, double longitude);
 
     //! Encode the polyline according to the defined compression algorithm.
     /*!
@@ -63,10 +68,12 @@ public:
 
 private:
     //! Encodes a single value according to the compression algorithm.
-    static std::string encode(float value);
+    static int encode(double value, char *result);
 
     //! Decodes the current decimal value out of string.
     static float decode(const std::string &coords, size_t &i);
+
+    //char[POLYLINE_MAX_LENGTH+1] c_polyline;
 
     //! Store the polyline - the list of points.
     Polyline m_polyline;
