@@ -50,49 +50,67 @@ std::string PolylineEncoder::encode() const
     return encode(m_polyline);
 }
 
-int PolylineEncoder::encode(double value, char *result)
+
+int encodePoint( double lat, double lon, char *result)
 {
-    printf("encode initial value: %f \n", value);
-    int32_t e5 = round(value * s_presision); // (2)
-
-    printf("encode step 2: e5=%i \n",e5);
-    e5 <<= 1;                                     // (4)
-
-    printf("encode step 4: e5=%i \n",e5);
-    if (value < 0) {
-        e5 = ~e5;                                 // (5)
-    }
-
-    printf("encode step 5: e5=%i \n",e5);
-
-    bool hasNextChunk = false;
-
     int r_len = 0; // length of result string so far
 
-    // Split the value into 5-bit chunks and convert each of them to integer
-    do {
-        int32_t nextChunk = (e5 >> s_chunkSize); // (6), (7) - start from the left 5 bits.
-        hasNextChunk = nextChunk > 0;
+    double *p_value = &lat;
 
-        int charVar = e5 & s_5bitMask;           // 5-bit mask (0b11111 == 31). Extract the left 5 bits.
-        if (hasNextChunk) {
-            charVar |= s_6bitMask;               // (8)
+    for (int deg = 0; deg <2; ++deg)
+    {
+        printf("encode initial value: %f \n", *p_value);
+        int32_t e5 = round(*p_value * s_presision); // (2)
+
+        printf("encode step 2: e5=%i \n",e5);
+        e5 <<= 1;                                     // (4)
+
+        printf("encode step 4: e5=%i \n",e5);
+        if (*p_value < 0) {
+            e5 = ~e5;                                 // (5)
         }
-        charVar += s_asciiOffset;                // (10)
 
-        result[r_len++] = (char)charVar;         // (11)
+        printf("encode step 5: e5=%i \n",e5);
 
-        // Todo: check length!
+        bool hasNextChunk = false;      
 
-        e5 = nextChunk;
+        // Split the value into 5-bit chunks and convert each of them to integer
+        do {
+            int32_t nextChunk = (e5 >> s_chunkSize); // (6), (7) - start from the left 5 bits.
+            hasNextChunk = nextChunk > 0;
 
-    } while (hasNextChunk);
+            int charVar = e5 & s_5bitMask;           // 5-bit mask (0b11111 == 31). Extract the left 5 bits.
+            if (hasNextChunk) {
+                charVar |= s_6bitMask;               // (8)
+            }
+            charVar += s_asciiOffset;                // (10)
 
+            result[r_len++] = (char)charVar;         // (11)
+
+            if(r_len == POLYLINE_POINT_MAX_LENGTH) 
+            {
+                // Error: Point too long. (This should never happen)
+                return 0;
+            }
+
+            e5 = nextChunk;
+
+        } while (hasNextChunk);
+
+        result[POLYLINE_POINT_MAX_LENGTH] =0; // debugging only
+        printf("encode result: %s \n", result);
+
+        *p_value = lon;
+    }
     result[r_len] = 0; // zero terminate string
 
-    printf("encode result: %s \n", result);
-
     return r_len;
+}
+
+int PolylineEncoder::encode(double value, char *result)
+{
+    
+    return 0;
 }
 
 std::string PolylineEncoder::encode(const PolylineEncoder::Polyline &polyline)
@@ -104,6 +122,7 @@ std::string PolylineEncoder::encode(const PolylineEncoder::Polyline &polyline)
     double lonPrev = .0;
 
     char c_polyline[POLYLINE_MAX_LENGTH+1];
+
     char c_result[POLYLINE_POINT_MAX_LENGTH+1];
 
 
@@ -114,11 +133,11 @@ std::string PolylineEncoder::encode(const PolylineEncoder::Polyline &polyline)
       const double lon = std::get<1>(tuple);
 
       // Offset from the previous point
-      encode(lat - latPrev,c_result);      
+      
+      encodePoint(lat - latPrev, lon-lonPrev,c_result);      
+
       result.append(c_result);
 
-      encode(lon - lonPrev,c_result);      
-      result.append(c_result);
 
       latPrev = lat;
       lonPrev = lon;

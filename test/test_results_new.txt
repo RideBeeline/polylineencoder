@@ -12,92 +12,92 @@ encode initial value: 38.500000
 encode step 2: e5=3850000 
 encode step 4: e5=7700000 
 encode step 5: e5=7700000 
-encode result: _p~iF 
+encode result: _p~iF 
 encode initial value: -120.200000 
 encode step 2: e5=-12020000 
 encode step 4: e5=-24040000 
 encode step 5: e5=24039999 
-encode result: ~ps|U 
+encode result: _p~iF~ps|U Î 
 encode initial value: 2.200000 
 encode step 2: e5=220000 
 encode step 4: e5=440000 
 encode step 5: e5=440000 
-encode result: _ulL 
+encode result: _ulLF~ps|U 
 encode initial value: -0.750000 
 encode step 2: e5=-75000 
 encode step 4: e5=-150000 
 encode step 5: e5=149999 
-encode result: nnqC 
+encode result: _ulLnnqC|U 
 encode initial value: 2.552000 
 encode step 2: e5=255200 
 encode step 4: e5=510400 
 encode step 5: e5=510400 
-encode result: _mqN 
+encode result: _mqNnnqC 
 encode initial value: -5.503000 
 encode step 2: e5=-550300 
 encode step 4: e5=-1100600 
 encode step 5: e5=1100599 
-encode result: vxq`@ 
+encode result: _mqNvxq`@U 
 encode initial value: -133.252000 
 encode step 2: e5=-13325200 
 encode step 4: e5=-26650400 
 encode step 5: e5=26650399 
-encode result: ~whlX 
+encode result: ~whlXxq`@ 
 encode initial value: -53.547000 
 encode step 2: e5=-5354700 
 encode step 4: e5=-10709400 
 encode step 5: e5=10709399 
-encode result: vkyeI 
+encode result: ~whlXvkyeI 
 encode initial value: 90.000000 
 encode step 2: e5=9000000 
 encode step 4: e5=18000000 
 encode step 5: e5=18000000 
-encode result: _cidP 
+encode result: _cidPvkyeI 
 encode initial value: 180.000000 
 encode step 2: e5=18000000 
 encode step 4: e5=36000000 
 encode step 5: e5=36000000 
-encode result: _gsia@ 
+encode result: _cidP_gsia@Î 
 encode initial value: 90.000000 
 encode step 2: e5=9000000 
 encode step 4: e5=18000000 
 encode step 5: e5=18000000 
-encode result: _cidP 
+encode result: _cidP_gsia@ 
 encode initial value: 180.000000 
 encode step 2: e5=18000000 
 encode step 4: e5=36000000 
 encode step 5: e5=36000000 
-encode result: _gsia@ 
+encode result: _cidP_gsia@ 
 encode initial value: -54.500000 
 encode step 2: e5=-5450000 
 encode step 4: e5=-10900000 
 encode step 5: e5=10899999 
-encode result: ~oskI 
+encode result: ~oskI_gsia@ 
 encode initial value: -305.200000 
 encode step 2: e5=-30520000 
 encode step 4: e5=-61040000 
 encode step 5: e5=61039999 
-encode result: ~jxey@ 
+encode result: ~oskI~jxey@ 
 encode initial value: 10.200000 
 encode step 2: e5=1020000 
 encode step 4: e5=2040000 
 encode step 5: e5=2040000 
-encode result: _eg}@ 
+encode result: _eg}@~jxey@ 
 encode initial value: -0.750000 
 encode step 2: e5=-75000 
 encode step 4: e5=-150000 
 encode step 5: e5=149999 
-encode result: nnqC 
+encode result: _eg}@nnqCy@ 
 encode initial value: -0.448000 
 encode step 2: e5=-44800 
 encode step 4: e5=-89600 
 encode step 5: e5=89599 
-encode result: ~nvA 
+encode result: ~nvA@nnqC 
 encode initial value: -3.503000 
 encode step 2: e5=-350300 
 encode step 4: e5=-700600 
 encode step 5: e5=700599 
-encode result: vdkT 
+encode result: ~nvAvdkTC 
 decode before step 5: result=7700000 
 decode before step 4: result=7700000 
 decode result=38.500000 

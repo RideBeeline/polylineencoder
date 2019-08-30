@@ -32,7 +32,7 @@
 #include "math.h"
 
 #define POLYLINE_MAX_LENGTH 50
-#define POLYLINE_POINT_MAX_LENGTH 6
+#define POLYLINE_POINT_MAX_LENGTH 12 //2 points 6chars per point
 
 //! Implements Google's polyline compression algorithm.
 /*!
