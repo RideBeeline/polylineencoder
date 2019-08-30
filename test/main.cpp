@@ -101,11 +101,45 @@ static bool test4()
     return test("test4", encoder, "_p~iF~ps|U_ulLnnqC_mqNvxq`@");
 }
 
+static bool test5()
+{
+    
+    PolylineEncoder encoder;
+    encoder.addPoint(38.5, -120.2);
+    encoder.addPoint(40.7, -120.95);
+    encoder.addPoint(43.252, -126.453);
+    encoder.addPoint(-90.0, -180.0);
+    encoder.addPoint(.0, .0);
+    encoder.addPoint(90.0, 180.0);
+    encoder.addPoint(35.5, -125.2);
+    encoder.addPoint(45.7, -125.95);
+    encoder.addPoint(45.252, -129.453);
+
+    auto org = encoder.polyline();
+    
+    auto res = encoder.decode(encoder.encode());
+
+    for(PolylineEncoder::Polyline::size_type i = 0; i != res.size(); i++) {
+
+        const auto o_lat = std::get<0>(org[i]);
+        const auto o_lon = std::get<1>(org[i]);
+        
+        const auto r_lat = std::get<0>(res[i]);
+        const auto r_lon = std::get<1>(res[i]);
+        
+        printf("p%u: org:(%10.6f, %10.6f) \tres:(%10.6f, %10.6f) \tdif:(%10.6f, %10.6f)\n", (unsigned int)i, o_lat, o_lon, r_lat, r_lon, o_lat-r_lat, o_lon-r_lon);
+    
+    }
+
+    return false;
+}
+
 int main(int /*argc*/, char ** /*argv[]*/)
 {
     printf("Start PolylineEncoder tests\n");
 
-    if (!test1() ||
+    if (!test5() ||
+        !test1() ||
         !test2() ||
         !test3() ||
         !test4()) {
