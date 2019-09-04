@@ -202,7 +202,6 @@ float PolylineEncoder::decode(const std::string &coords, size_t &i)
     printf("decode before step 4: result=%i \n",result);
     result >>= 1;                // (4)
 
-    printf("decode result=%f \n",result / s_presision);
     // Convert to decimal value.
     return result / s_presision; // (2)
 }
@@ -216,6 +215,8 @@ PolylineEncoder::Polyline PolylineEncoder::decode(const std::string &coords)
     {
         auto lat = decode(coords, i);
         auto lon = decode(coords, i);
+
+         printf("decode result: lat=%f lon=%f \n",lat / s_presision, lon / s_presision);
 
         if (!polyline.empty()) {
             const auto &prevPoint = polyline.back();
