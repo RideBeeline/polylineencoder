@@ -104,7 +104,7 @@ std::string PolylineEncoder::encode(const PolylineEncoder::Polyline &polyline)
 
       std::string result2point = "";
       result2point.append(encode(lat - latPrev));
-      result2point.append(encode(lat - latPrev));
+      result2point.append(encode(lon - lonPrev));
 
       printf("encode result 2p: %s \n", result2point.c_str());
       result.append(result2point);
