@@ -104,7 +104,7 @@ int encodePoint( double lat, double lon, char *result)
     return r_len;
 }
 
-int encodeAll(Pointf *p_points, const size_t num_points, char *result, const size_t size_result)
+int encodeAll(Point_d *p_points, const size_t num_points, char *result, const size_t size_result)
 {
     // The first segment: offset from (.0, .0)
     double latPrev = .0;
@@ -130,7 +130,7 @@ int encodeAll(Pointf *p_points, const size_t num_points, char *result, const siz
                 return ret;
             }
 
-            printf("result 2points: %s\n",c_point);
+            printf("encode result 2p: %s\n",c_point);
 
             strcat(result, c_point);
             res_len += len;
@@ -159,7 +159,7 @@ std::string PolylineEncoder::encode(const PolylineEncoder::Polyline &polyline)
     
     size_t n_points = 0;
 
-    Pointf points[20];
+    Point_d points[20];
 
 
 
@@ -168,10 +168,9 @@ std::string PolylineEncoder::encode(const PolylineEncoder::Polyline &polyline)
       const double lat = std::get<0>(tuple);
       const double lon = std::get<1>(tuple);
 
-      Pointf point = {(float)lat, (float)lon };
+      Point_d point = {lat, lon };
 
       points[n_points++] = point;
-
 
     }
 
@@ -180,7 +179,7 @@ std::string PolylineEncoder::encode(const PolylineEncoder::Polyline &polyline)
     return std::string(c_polyline);
 }
 
-float PolylineEncoder::decode(const std::string &coords, size_t &i)
+double PolylineEncoder::decode(const std::string &coords, size_t &i)
 {
     assert(i < coords.size());
 

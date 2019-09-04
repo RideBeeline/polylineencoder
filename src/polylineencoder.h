@@ -41,9 +41,9 @@
   https://developers.google.com/maps/documentation/utilities/polylinealgorithm
 */
 typedef struct {
-	float lat;
-	float lon;
-} Pointf;
+	double lat;
+	double lon;
+} Point_d;
 
 class PolylineEncoder
 {
@@ -77,7 +77,7 @@ private:
     static int encode(double value, char *result);
 
     //! Decodes the current decimal value out of string.
-    static float decode(const std::string &coords, size_t &i);
+    static double decode(const std::string &coords, size_t &i);
 
     //char[POLYLINE_MAX_LENGTH+1] c_polyline;
 
