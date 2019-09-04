@@ -136,7 +136,7 @@ static bool test5()
 
 int main(int /*argc*/, char ** /*argv[]*/)
 {
-    printf("Start PolylineEncoder tests\n");
+    printf("Start new PolylineEncoder tests.\n");
 
     if (!test5() ||
         !test1() ||

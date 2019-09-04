@@ -1,4 +1,4 @@
-Start PolylineEncoder tests
+Start new PolylineEncoder tests.
 added Point (38.500000,-120.200000)
 added Point (40.700000,-120.950000)
 added Point (43.252000,-126.453000)
@@ -91,64 +91,73 @@ encode step 5: e5=700601
 result 2points: ~nvAxdkT
 decode before step 5: result=7700000 
 decode before step 4: result=7700000 
-decode result=38.500000 
 decode before step 5: result=24039999 
 decode before step 4: result=-24040000 
-decode result=-120.200000 
+decode result: lat=0.000385 lon=-0.001202 
 decode before step 5: result=440000 
 decode before step 4: result=440000 
-decode result=2.200000 
 decode before step 5: result=149999 
 decode before step 4: result=-150000 
-decode result=-0.750000 
+decode result: lat=0.000022 lon=-0.000008 
 decode before step 5: result=510400 
 decode before step 4: result=510400 
-decode result=2.552000 
 decode before step 5: result=1100601 
 decode before step 4: result=-1100602 
-decode result=-5.503010 
+decode result: lat=0.000026 lon=-0.000055 
 decode before step 5: result=26650399 
 decode before step 4: result=-26650400 
-decode result=-133.252000 
 decode before step 5: result=10709399 
 decode before step 4: result=-10709400 
-decode result=-53.547000 
+decode result: lat=-0.001333 lon=-0.000535 
 decode before step 5: result=18000000 
 decode before step 4: result=18000000 
-decode result=90.000000 
 decode before step 5: result=36000000 
 decode before step 4: result=36000000 
-decode result=180.000000 
+decode result: lat=0.000900 lon=0.001800 
 decode before step 5: result=18000000 
 decode before step 4: result=18000000 
-decode result=90.000000 
 decode before step 5: result=36000000 
 decode before step 4: result=36000000 
-decode result=180.000000 
+decode result: lat=0.000900 lon=0.001800 
 decode before step 5: result=10899999 
 decode before step 4: result=-10900000 
-decode result=-54.500000 
 decode before step 5: result=61039999 
 decode before step 4: result=-61040000 
-decode result=-305.200000 
+decode result: lat=-0.000545 lon=-0.003052 
 decode before step 5: result=2040000 
 decode before step 4: result=2040000 
-decode result=10.200000 
 decode before step 5: result=149999 
 decode before step 4: result=-150000 
-decode result=-0.750000 
+decode result: lat=0.000102 lon=-0.000008 
 decode before step 5: result=89599 
 decode before step 4: result=-89600 
-decode result=-0.448000 
 decode before step 5: result=700601 
 decode before step 4: result=-700602 
-decode result=-3.503010 
-p0: org:( 38.500000, -120.200000) 	res:( 38.500000, -120.199997) 	dif:(  0.000000,  -0.000003)
-p1: org:( 40.700000, -120.950000) 	res:( 40.700001, -120.949997) 	dif:( -0.000001,  -0.000003)
-p2: org:( 43.252000, -126.453000) 	res:( 43.251999, -126.453003) 	dif:(  0.000001,   0.000003)
-p3: org:(-90.000000, -180.000000) 	res:(-90.000000, -180.000000) 	dif:(  0.000000,   0.000000)
-p4: org:(  0.000000,   0.000000) 	res:(  0.000000,   0.000000) 	dif:(  0.000000,   0.000000)
-p5: org:( 90.000000, 180.000000) 	res:( 90.000000, 180.000000) 	dif:(  0.000000,   0.000000)
-p6: org:( 35.500000, -125.200000) 	res:( 35.500000, -125.200012) 	dif:(  0.000000,   0.000012)
-p7: org:( 45.700000, -125.950000) 	res:( 45.700001, -125.950012) 	dif:( -0.000001,   0.000012)
-p8: org:( 45.252000, -129.453000) 	res:( 45.251999, -129.453018) 	dif:(  0.000001,   0.000018)
+decode result: lat=-0.000004 lon=-0.000035 
+p0: 	org:( 38.500000, -120.200000) 
+	res:( 38.500000, -120.199997) 
+	dif:(  0.000000,  -0.000003)
+p1: 	org:( 40.700000, -120.950000) 
+	res:( 40.700001, -120.949997) 
+	dif:( -0.000001,  -0.000003)
+p2: 	org:( 43.252000, -126.453000) 
+	res:( 43.251999, -126.453003) 
+	dif:(  0.000001,   0.000003)
+p3: 	org:(-90.000000, -180.000000) 
+	res:(-90.000000, -180.000000) 
+	dif:(  0.000000,   0.000000)
+p4: 	org:(  0.000000,   0.000000) 
+	res:(  0.000000,   0.000000) 
+	dif:(  0.000000,   0.000000)
+p5: 	org:( 90.000000, 180.000000) 
+	res:( 90.000000, 180.000000) 
+	dif:(  0.000000,   0.000000)
+p6: 	org:( 35.500000, -125.200000) 
+	res:( 35.500000, -125.200012) 
+	dif:(  0.000000,   0.000012)
+p7: 	org:( 45.700000, -125.950000) 
+	res:( 45.700001, -125.950012) 
+	dif:( -0.000001,   0.000012)
+p8: 	org:( 45.252000, -129.453000) 
+	res:( 45.251999, -129.453018) 
+	dif:(  0.000001,   0.000018)
