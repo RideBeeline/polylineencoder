@@ -1,4 +1,4 @@
-Start PolylineEncoder tests
+Start org PolylineEncoder tests
 added Point (38.500000,-120.200000)
 added Point (40.700000,-120.950000)
 added Point (43.252000,-126.453000)
@@ -12,152 +12,152 @@ encode initial value: 38.500000
 encode step 2: e5=3850000 
 encode step 4: e5=7700000 
 encode step 5: e5=7700000 
-encode initial value: 38.500000 
-encode step 2: e5=3850000 
-encode step 4: e5=7700000 
-encode step 5: e5=7700000 
-encode result 2p: _p~iF_p~iF 
+encode initial value: -120.200000 
+encode step 2: e5=-12020000 
+encode step 4: e5=-24040000 
+encode step 5: e5=24039999 
+encode result 2p: _p~iF~ps|U 
 encode initial value: 2.200000 
 encode step 2: e5=220000 
 encode step 4: e5=440000 
 encode step 5: e5=440000 
-encode initial value: 2.200000 
-encode step 2: e5=220000 
-encode step 4: e5=440000 
-encode step 5: e5=440000 
-encode result 2p: _ulL_ulL 
+encode initial value: -0.750000 
+encode step 2: e5=-75000 
+encode step 4: e5=-150000 
+encode step 5: e5=149999 
+encode result 2p: _ulLnnqC 
 encode initial value: 2.552000 
 encode step 2: e5=255200 
 encode step 4: e5=510400 
 encode step 5: e5=510400 
-encode initial value: 2.552000 
-encode step 2: e5=255200 
-encode step 4: e5=510400 
-encode step 5: e5=510400 
-encode result 2p: _mqN_mqN 
+encode initial value: -5.503000 
+encode step 2: e5=-550300 
+encode step 4: e5=-1100600 
+encode step 5: e5=1100599 
+encode result 2p: _mqNvxq`@ 
 encode initial value: -133.252000 
 encode step 2: e5=-13325200 
 encode step 4: e5=-26650400 
 encode step 5: e5=26650399 
-encode initial value: -133.252000 
-encode step 2: e5=-13325200 
-encode step 4: e5=-26650400 
-encode step 5: e5=26650399 
-encode result 2p: ~whlX~whlX 
+encode initial value: -53.547000 
+encode step 2: e5=-5354700 
+encode step 4: e5=-10709400 
+encode step 5: e5=10709399 
+encode result 2p: ~whlXvkyeI 
 encode initial value: 90.000000 
 encode step 2: e5=9000000 
 encode step 4: e5=18000000 
 encode step 5: e5=18000000 
+encode initial value: 180.000000 
+encode step 2: e5=18000000 
+encode step 4: e5=36000000 
+encode step 5: e5=36000000 
+encode result 2p: _cidP_gsia@ 
 encode initial value: 90.000000 
 encode step 2: e5=9000000 
 encode step 4: e5=18000000 
 encode step 5: e5=18000000 
-encode result 2p: _cidP_cidP 
-encode initial value: 90.000000 
-encode step 2: e5=9000000 
-encode step 4: e5=18000000 
-encode step 5: e5=18000000 
-encode initial value: 90.000000 
-encode step 2: e5=9000000 
-encode step 4: e5=18000000 
-encode step 5: e5=18000000 
-encode result 2p: _cidP_cidP 
+encode initial value: 180.000000 
+encode step 2: e5=18000000 
+encode step 4: e5=36000000 
+encode step 5: e5=36000000 
+encode result 2p: _cidP_gsia@ 
 encode initial value: -54.500000 
 encode step 2: e5=-5450000 
 encode step 4: e5=-10900000 
 encode step 5: e5=10899999 
-encode initial value: -54.500000 
-encode step 2: e5=-5450000 
-encode step 4: e5=-10900000 
-encode step 5: e5=10899999 
-encode result 2p: ~oskI~oskI 
+encode initial value: -305.200000 
+encode step 2: e5=-30520000 
+encode step 4: e5=-61040000 
+encode step 5: e5=61039999 
+encode result 2p: ~oskI~jxey@ 
 encode initial value: 10.200000 
 encode step 2: e5=1020000 
 encode step 4: e5=2040000 
 encode step 5: e5=2040000 
-encode initial value: 10.200000 
-encode step 2: e5=1020000 
-encode step 4: e5=2040000 
-encode step 5: e5=2040000 
-encode result 2p: _eg}@_eg}@ 
+encode initial value: -0.750000 
+encode step 2: e5=-75000 
+encode step 4: e5=-150000 
+encode step 5: e5=149999 
+encode result 2p: _eg}@nnqC 
 encode initial value: -0.448000 
 encode step 2: e5=-44800 
 encode step 4: e5=-89600 
 encode step 5: e5=89599 
-encode initial value: -0.448000 
-encode step 2: e5=-44800 
-encode step 4: e5=-89600 
-encode step 5: e5=89599 
-encode result 2p: ~nvA~nvA 
+encode initial value: -3.503000 
+encode step 2: e5=-350300 
+encode step 4: e5=-700600 
+encode step 5: e5=700599 
+encode result 2p: ~nvAvdkT 
 decode before step 5: result=7700000 
 decode before step 4: result=7700000 
-decode before step 5: result=7700000 
-decode before step 4: result=7700000 
-decode result: lat=0.000385 lon=0.000385 
+decode before step 5: result=24039999 
+decode before step 4: result=-24040000 
+decode result: lat=0.000385 lon=-0.001202 
 decode before step 5: result=440000 
 decode before step 4: result=440000 
-decode before step 5: result=440000 
-decode before step 4: result=440000 
-decode result: lat=0.000022 lon=0.000022 
+decode before step 5: result=149999 
+decode before step 4: result=-150000 
+decode result: lat=0.000022 lon=-0.000008 
 decode before step 5: result=510400 
 decode before step 4: result=510400 
-decode before step 5: result=510400 
-decode before step 4: result=510400 
-decode result: lat=0.000026 lon=0.000026 
+decode before step 5: result=1100599 
+decode before step 4: result=-1100600 
+decode result: lat=0.000026 lon=-0.000055 
 decode before step 5: result=26650399 
 decode before step 4: result=-26650400 
-decode before step 5: result=26650399 
-decode before step 4: result=-26650400 
-decode result: lat=-0.001333 lon=-0.001333 
+decode before step 5: result=10709399 
+decode before step 4: result=-10709400 
+decode result: lat=-0.001333 lon=-0.000535 
 decode before step 5: result=18000000 
 decode before step 4: result=18000000 
+decode before step 5: result=36000000 
+decode before step 4: result=36000000 
+decode result: lat=0.000900 lon=0.001800 
 decode before step 5: result=18000000 
 decode before step 4: result=18000000 
-decode result: lat=0.000900 lon=0.000900 
-decode before step 5: result=18000000 
-decode before step 4: result=18000000 
-decode before step 5: result=18000000 
-decode before step 4: result=18000000 
-decode result: lat=0.000900 lon=0.000900 
+decode before step 5: result=36000000 
+decode before step 4: result=36000000 
+decode result: lat=0.000900 lon=0.001800 
 decode before step 5: result=10899999 
 decode before step 4: result=-10900000 
-decode before step 5: result=10899999 
-decode before step 4: result=-10900000 
-decode result: lat=-0.000545 lon=-0.000545 
+decode before step 5: result=61039999 
+decode before step 4: result=-61040000 
+decode result: lat=-0.000545 lon=-0.003052 
 decode before step 5: result=2040000 
 decode before step 4: result=2040000 
-decode before step 5: result=2040000 
-decode before step 4: result=2040000 
-decode result: lat=0.000102 lon=0.000102 
+decode before step 5: result=149999 
+decode before step 4: result=-150000 
+decode result: lat=0.000102 lon=-0.000008 
 decode before step 5: result=89599 
 decode before step 4: result=-89600 
-decode before step 5: result=89599 
-decode before step 4: result=-89600 
-decode result: lat=-0.000004 lon=-0.000004 
+decode before step 5: result=700599 
+decode before step 4: result=-700600 
+decode result: lat=-0.000004 lon=-0.000035 
 p0: 	org:( 38.500000, -120.200000) 
-	res:( 38.500000,  38.500000) 
-	dif:(  0.000000, -158.700000)
+	res:( 38.500000, -120.200000) 
+	dif:(  0.000000,   0.000000)
 p1: 	org:( 40.700000, -120.950000) 
-	res:( 40.700000,  40.700000) 
-	dif:(  0.000000, -161.650000)
+	res:( 40.700000, -120.950000) 
+	dif:(  0.000000,   0.000000)
 p2: 	org:( 43.252000, -126.453000) 
-	res:( 43.252000,  43.252000) 
-	dif:(  0.000000, -169.705000)
+	res:( 43.252000, -126.453000) 
+	dif:(  0.000000,   0.000000)
 p3: 	org:(-90.000000, -180.000000) 
-	res:(-90.000000, -90.000000) 
-	dif:(  0.000000, -90.000000)
+	res:(-90.000000, -180.000000) 
+	dif:(  0.000000,   0.000000)
 p4: 	org:(  0.000000,   0.000000) 
 	res:(  0.000000,   0.000000) 
 	dif:(  0.000000,   0.000000)
 p5: 	org:( 90.000000, 180.000000) 
-	res:( 90.000000,  90.000000) 
-	dif:(  0.000000,  90.000000)
+	res:( 90.000000, 180.000000) 
+	dif:(  0.000000,   0.000000)
 p6: 	org:( 35.500000, -125.200000) 
-	res:( 35.500000,  35.500000) 
-	dif:(  0.000000, -160.700000)
+	res:( 35.500000, -125.200000) 
+	dif:(  0.000000,  -0.000000)
 p7: 	org:( 45.700000, -125.950000) 
-	res:( 45.700000,  45.700000) 
-	dif:(  0.000000, -171.650000)
+	res:( 45.700000, -125.950000) 
+	dif:(  0.000000,  -0.000000)
 p8: 	org:( 45.252000, -129.453000) 
-	res:( 45.252000,  45.252000) 
-	dif:(  0.000000, -174.705000)
+	res:( 45.252000, -129.453000) 
+	dif:(  0.000000,  -0.000000)
