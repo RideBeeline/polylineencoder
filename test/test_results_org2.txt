@@ -1,4 +1,4 @@
-Start new PolylineEncoder tests.
+Start org PolylineEncoder tests
 added Point (38.500000,-120.200000)
 added Point (40.700000,-120.950000)
 added Point (43.252000,-126.453000)
@@ -16,7 +16,7 @@ encode initial value: -120.200000
 encode step 2: e5=-12020000 
 encode step 4: e5=-24040000 
 encode step 5: e5=24039999 
-encode result 2p: _p~iF~ps|U
+encode result 2p: _p~iF~ps|U 
 encode initial value: 2.200000 
 encode step 2: e5=220000 
 encode step 4: e5=440000 
@@ -25,7 +25,7 @@ encode initial value: -0.750000
 encode step 2: e5=-75000 
 encode step 4: e5=-150000 
 encode step 5: e5=149999 
-encode result 2p: _ulLnnqC
+encode result 2p: _ulLnnqC 
 encode initial value: 2.552000 
 encode step 2: e5=255200 
 encode step 4: e5=510400 
@@ -34,7 +34,7 @@ encode initial value: -5.503000
 encode step 2: e5=-550300 
 encode step 4: e5=-1100600 
 encode step 5: e5=1100599 
-encode result 2p: _mqNvxq`@
+encode result 2p: _mqNvxq`@ 
 encode initial value: -133.252000 
 encode step 2: e5=-13325200 
 encode step 4: e5=-26650400 
@@ -43,7 +43,7 @@ encode initial value: -53.547000
 encode step 2: e5=-5354700 
 encode step 4: e5=-10709400 
 encode step 5: e5=10709399 
-encode result 2p: ~whlXvkyeI
+encode result 2p: ~whlXvkyeI 
 encode initial value: 90.000000 
 encode step 2: e5=9000000 
 encode step 4: e5=18000000 
@@ -52,7 +52,7 @@ encode initial value: 180.000000
 encode step 2: e5=18000000 
 encode step 4: e5=36000000 
 encode step 5: e5=36000000 
-encode result 2p: _cidP_gsia@
+encode result 2p: _cidP_gsia@ 
 encode initial value: 90.000000 
 encode step 2: e5=9000000 
 encode step 4: e5=18000000 
@@ -61,7 +61,7 @@ encode initial value: 180.000000
 encode step 2: e5=18000000 
 encode step 4: e5=36000000 
 encode step 5: e5=36000000 
-encode result 2p: _cidP_gsia@
+encode result 2p: _cidP_gsia@ 
 encode initial value: -54.500000 
 encode step 2: e5=-5450000 
 encode step 4: e5=-10900000 
@@ -70,7 +70,7 @@ encode initial value: -305.200000
 encode step 2: e5=-30520000 
 encode step 4: e5=-61040000 
 encode step 5: e5=61039999 
-encode result 2p: ~oskI~jxey@
+encode result 2p: ~oskI~jxey@ 
 encode initial value: 10.200000 
 encode step 2: e5=1020000 
 encode step 4: e5=2040000 
@@ -79,7 +79,7 @@ encode initial value: -0.750000
 encode step 2: e5=-75000 
 encode step 4: e5=-150000 
 encode step 5: e5=149999 
-encode result 2p: _eg}@nnqC
+encode result 2p: _eg}@nnqC 
 encode initial value: -0.448000 
 encode step 2: e5=-44800 
 encode step 4: e5=-89600 
@@ -88,7 +88,7 @@ encode initial value: -3.503000
 encode step 2: e5=-350300 
 encode step 4: e5=-700600 
 encode step 5: e5=700599 
-encode result 2p: ~nvAvdkT
+encode result 2p: ~nvAvdkT 
 32, 0, 0
 32, 0, 5
 49, 544, 5
@@ -113,7 +113,7 @@ decode before step 4: result=7700000
 22, 24039999, 25
 decode before step 5: result=24039999 
 decode before step 4: result=-24040000 
-decode result: lat=38.500000 lon=-120.200000
+decode result: lat=0.000385 lon=-0.001202 
 32, 0, 0
 32, 0, 5
 54, 704, 5
@@ -134,7 +134,7 @@ decode before step 4: result=440000
 4, 149999, 20
 decode before step 5: result=149999 
 decode before step 4: result=-150000 
-decode result: lat=40.700000 lon=-120.950000
+decode result: lat=0.000022 lon=-0.000008 
 32, 0, 0
 32, 0, 5
 46, 448, 5
@@ -157,7 +157,7 @@ decode before step 4: result=510400
 1, 1100599, 25
 decode before step 5: result=1100599 
 decode before step 4: result=-1100600 
-decode result: lat=43.252000 lon=-126.453000
+decode result: lat=0.000026 lon=-0.000055 
 63, 31, 0
 63, 31, 5
 56, 799, 5
@@ -182,7 +182,7 @@ decode before step 4: result=-26650400
 10, 10709399, 25
 decode before step 5: result=10709399 
 decode before step 4: result=-10709400 
-decode result: lat=-90.000000 lon=-180.000000
+decode result: lat=-0.001333 lon=-0.000535 
 32, 0, 0
 32, 0, 5
 36, 128, 5
@@ -209,7 +209,7 @@ decode before step 4: result=18000000
 1, 36000000, 30
 decode before step 5: result=36000000 
 decode before step 4: result=36000000 
-decode result: lat=0.000000 lon=0.000000
+decode result: lat=0.000900 lon=0.001800 
 32, 0, 0
 32, 0, 5
 36, 128, 5
@@ -236,7 +236,7 @@ decode before step 4: result=18000000
 1, 36000000, 30
 decode before step 5: result=36000000 
 decode before step 4: result=36000000 
-decode result: lat=90.000000 lon=180.000000
+decode result: lat=0.000900 lon=0.001800 
 63, 31, 0
 63, 31, 5
 48, 543, 5
@@ -263,7 +263,7 @@ decode before step 4: result=-10900000
 1, 61039999, 30
 decode before step 5: result=61039999 
 decode before step 4: result=-61040000 
-decode result: lat=35.500000 lon=-125.200000
+decode result: lat=-0.000545 lon=-0.003052 
 32, 0, 0
 32, 0, 5
 38, 192, 5
@@ -286,7 +286,7 @@ decode before step 4: result=2040000
 4, 149999, 20
 decode before step 5: result=149999 
 decode before step 4: result=-150000 
-decode result: lat=45.700000 lon=-125.950000
+decode result: lat=0.000102 lon=-0.000008 
 63, 31, 0
 63, 31, 5
 47, 511, 5
@@ -307,7 +307,7 @@ decode before step 4: result=-89600
 21, 700599, 20
 decode before step 5: result=700599 
 decode before step 4: result=-700600 
-decode result: lat=45.252000 lon=-129.453000
+decode result: lat=-0.000004 lon=-0.000035 
 p0: 	org:( 38.500000, -120.200000) 
 	res:( 38.500000, -120.200000) 
 	dif:(  0.000000,   0.000000)

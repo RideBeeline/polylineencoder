@@ -195,6 +195,7 @@ int PolylineEncoder::decodeChar( char c, Point_d * point )
         case WAITING_FOR_FIRST_POINT:
             pd_prev_point.lat = 0.0;
             pd_prev_point.lon = 0.0;
+            pd_state = static_cast<DecodingState>(static_cast<int>(pd_state) + 1);
         
         case WAITING_FOR_FIRST_LAT_CHAR:
         case WAITING_FOR_FIRST_LON_CHAR:
@@ -209,9 +210,10 @@ int PolylineEncoder::decodeChar( char c, Point_d * point )
     // do this for every new character
     c -= s_asciiOffset;      // (10)
     pd_result |= (c & s_5bitMask) << pd_shift;
+    printf("%i, %i, %i\n",c,pd_result,pd_shift);    
     pd_shift += s_chunkSize;    // (7)
 
-    printf("%i, %i\n",c,pd_result);    
+    printf("%i, %i, %i\n",c,pd_result,pd_shift);    
     if (c < s_6bitMask) {
 
         printf("decode before step 5: result=%i \n",pd_result);
