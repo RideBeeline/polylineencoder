@@ -83,7 +83,6 @@ std::string PolylineEncoder::encode(double value)
         e5 = nextChunk;
     } while (hasNextChunk);
 
-    printf("encode result: %s \n", result.c_str());
 
     return result;
 }
@@ -102,8 +101,13 @@ std::string PolylineEncoder::encode(const PolylineEncoder::Polyline &polyline)
       const auto lon = std::get<1>(tuple);
 
       // Offset from the previous point
-      result.append(encode(lat - latPrev));
-      result.append(encode(lon - lonPrev));
+
+      std::string result2point = "";
+      result2point.append(encode(lat - latPrev));
+      result2point.append(encode(lat - latPrev));
+
+      printf("encode result 2p: %s \n", result2point.c_str());
+      result.append(result2point);
 
       latPrev = lat;
       lonPrev = lon;
@@ -134,7 +138,6 @@ double PolylineEncoder::decode(const std::string &coords, size_t &i)
     printf("decode before step 4: result=%i \n",result);
     result >>= 1;                // (4)
 
-    printf("decode result=%f \n",result / s_presision);
     // Convert to decimal value.
     return result / s_presision; // (2)
 }
@@ -148,6 +151,8 @@ PolylineEncoder::Polyline PolylineEncoder::decode(const std::string &coords)
     {
         auto lat = decode(coords, i);
         auto lon = decode(coords, i);
+
+         printf("decode result: lat=%f lon=%f \n",lat / s_presision, lon / s_presision);
 
         if (!polyline.empty()) {
             const auto &prevPoint = polyline.back();
