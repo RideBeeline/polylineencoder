@@ -211,7 +211,7 @@ int PolylineEncoder::decodeChar( char c, Point_d * point )
     pd_result |= (c & s_5bitMask) << pd_shift;
     pd_shift += s_chunkSize;    // (7)
 
-    
+    printf("%i, %i\n",c,pd_result);    
     if (c < s_6bitMask) {
 
         printf("decode before step 5: result=%i \n",pd_result);
