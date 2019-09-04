@@ -89,75 +89,75 @@ encode step 2: e5=-350300
 encode step 4: e5=-700600 
 encode step 5: e5=700599 
 encode result 2p: ~nvAvdkT
-decode before step 5: result=7700000 
-decode before step 4: result=7700000 
+decode before step 5: result=240625 
+decode before step 4: result=-240626 
 decode before step 5: result=24039999 
 decode before step 4: result=-24040000 
-decode result: lat=0.000385 lon=-0.001202 
+decode result: lat=-1.203130 lon=-120.200000
 decode before step 5: result=440000 
 decode before step 4: result=440000 
 decode before step 5: result=149999 
 decode before step 4: result=-150000 
-decode result: lat=0.000022 lon=-0.000008 
+decode result: lat=0.996870 lon=-120.950000
 decode before step 5: result=510400 
 decode before step 4: result=510400 
 decode before step 5: result=1100599 
 decode before step 4: result=-1100600 
-decode result: lat=0.000026 lon=-0.000055 
+decode result: lat=3.548870 lon=-126.453000
 decode before step 5: result=26650399 
 decode before step 4: result=-26650400 
 decode before step 5: result=10709399 
 decode before step 4: result=-10709400 
-decode result: lat=-0.001333 lon=-0.000535 
+decode result: lat=-129.703130 lon=-180.000000
 decode before step 5: result=18000000 
 decode before step 4: result=18000000 
 decode before step 5: result=36000000 
 decode before step 4: result=36000000 
-decode result: lat=0.000900 lon=0.001800 
+decode result: lat=-39.703130 lon=0.000000
 decode before step 5: result=18000000 
 decode before step 4: result=18000000 
 decode before step 5: result=36000000 
 decode before step 4: result=36000000 
-decode result: lat=0.000900 lon=0.001800 
+decode result: lat=50.296870 lon=180.000000
 decode before step 5: result=10899999 
 decode before step 4: result=-10900000 
 decode before step 5: result=61039999 
 decode before step 4: result=-61040000 
-decode result: lat=-0.000545 lon=-0.003052 
+decode result: lat=-4.203130 lon=-125.200000
 decode before step 5: result=2040000 
 decode before step 4: result=2040000 
 decode before step 5: result=149999 
 decode before step 4: result=-150000 
-decode result: lat=0.000102 lon=-0.000008 
+decode result: lat=5.996870 lon=-125.950000
 decode before step 5: result=89599 
 decode before step 4: result=-89600 
 decode before step 5: result=700599 
 decode before step 4: result=-700600 
-decode result: lat=-0.000004 lon=-0.000035 
+decode result: lat=5.548870 lon=-129.453000
 p0: 	org:( 38.500000, -120.200000) 
-	res:( 38.500000, -120.200000) 
-	dif:(  0.000000,   0.000000)
+	res:( -1.203130, -120.200000) 
+	dif:( 39.703130,   0.000000)
 p1: 	org:( 40.700000, -120.950000) 
-	res:( 40.700000, -120.950000) 
-	dif:(  0.000000,   0.000000)
+	res:(  0.996870, -120.950000) 
+	dif:( 39.703130,   0.000000)
 p2: 	org:( 43.252000, -126.453000) 
-	res:( 43.252000, -126.453000) 
-	dif:(  0.000000,   0.000000)
+	res:(  3.548870, -126.453000) 
+	dif:( 39.703130,   0.000000)
 p3: 	org:(-90.000000, -180.000000) 
-	res:(-90.000000, -180.000000) 
-	dif:(  0.000000,   0.000000)
+	res:(-129.703130, -180.000000) 
+	dif:( 39.703130,   0.000000)
 p4: 	org:(  0.000000,   0.000000) 
-	res:(  0.000000,   0.000000) 
-	dif:(  0.000000,   0.000000)
+	res:(-39.703130,   0.000000) 
+	dif:( 39.703130,   0.000000)
 p5: 	org:( 90.000000, 180.000000) 
-	res:( 90.000000, 180.000000) 
-	dif:(  0.000000,   0.000000)
+	res:( 50.296870, 180.000000) 
+	dif:( 39.703130,   0.000000)
 p6: 	org:( 35.500000, -125.200000) 
-	res:( 35.500000, -125.200000) 
-	dif:(  0.000000,  -0.000000)
+	res:( -4.203130, -125.200000) 
+	dif:( 39.703130,  -0.000000)
 p7: 	org:( 45.700000, -125.950000) 
-	res:( 45.700000, -125.950000) 
-	dif:(  0.000000,  -0.000000)
+	res:(  5.996870, -125.950000) 
+	dif:( 39.703130,  -0.000000)
 p8: 	org:( 45.252000, -129.453000) 
-	res:( 45.252000, -129.453000) 
-	dif:(  0.000000,  -0.000000)
+	res:(  5.548870, -129.453000) 
+	dif:( 39.703130,  -0.000000)

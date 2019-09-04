@@ -72,12 +72,33 @@ public:
     //! Returns polyline decoded from the given \p coordinates string.
     static Polyline decode(const std::string &coordinates);
 
+
+    static int decodeChar( char c, Point_d * point );
+    static void decodeStart();
+    static int decodeAll(const char *coord, const size_t len_coord, 
+                         Point_d *points, const size_t max_points);
+
+
 private:
     //! Encodes a single value according to the compression algorithm.
     static int encode(double value, char *result);
 
     //! Decodes the current decimal value out of string.
     static double decode(const std::string &coords, size_t &i);
+
+    
+
+    enum DecodingState
+    {
+        WAITING_FOR_FIRST_POINT,
+        WAITING_FOR_FIRST_LAT_CHAR,
+        DECODING_LATITUDE,
+        WAITING_FOR_FIRST_LON_CHAR,
+        DECODING_LONGITUDE,
+    };
+    
+
+    
 
     //char[POLYLINE_MAX_LENGTH+1] c_polyline;
 
