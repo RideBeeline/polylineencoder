@@ -1,59 +1,55 @@
-# Polyline Encoder/Decoder
-C++ implementation of [Google Encoded Polyline Algorithm Format](https://developers.google.com/maps/documentation/utilities/polylinealgorithm)
-
-[![Build Status](https://travis-ci.org/vahancho/polylineencoder.svg?branch=master)](https://travis-ci.org/vahancho/polylineencoder)
-[![Build status](https://ci.appveyor.com/api/projects/status/6tg1kkp5fgk3x2fd?svg=true)](https://ci.appveyor.com/project/vahancho/polylineencoder)
-[![Coverage Status](https://coveralls.io/repos/github/vahancho/polylineencoder/badge.svg?branch=master)](https://coveralls.io/github/vahancho/polylineencoder?branch=master)
+# Polyline Encoder/Decoder for Embedded Systems
+C-Style C++ implementation of [Google Encoded Polyline Algorithm Format](https://developers.google.com/maps/documentation/utilities/polylinealgorithm) forked from [PolylineEncoder](https://github.com/vahancho/polylineencoder)
 
 ## Installation
 
-No installation required. Just compile *polylineencoder.h(.cpp)* in your project and use `PolylineEncoder` class.
+No installation required. Just compile *polylineencoder.h(.cpp)* in your project and use `Polyline` namespaced functions and the `StepDecoder` Class.
 
 ## Prerequisites
 
-No special requirements except *C++11* compliant compiler. The class is tested with *gcc 4.8.4* and *MSVC 12.0* (Visual Studio 2013).
-For more details see the CI badges (*Travis CI & AppVeyor CI*).
+No special requirements except a *C++* compliant compiler. The class is tested with *g++ 7.4.0*.
+
+## C-Style
+
+This library is designed to run on embedded systems and does not use resource intensive C++ functionality or the Standard Library. The class encapsulation is useful if the state of several `StepEncoders` should be preserved. However, it would be trivial to port it to pure C.
+
+## Streams
+The library can be used to en/decode polylines one point or character at a time. This allows stream-like implementation for on-the-fly encoding / decoding and minimal memory consumption.
 
 ## Usage Example:
 
 ```cpp
-PolylineEncoder encoder;
+char line[50];              // Big enough for result.
+Polyline::Point points[3];  // Array of points forms a line.
 
-// Poles and equator.
-encoder.addPoint(-90.0, -180.0);
-encoder.addPoint(.0, .0);
-encoder.addPoint(90.0, 180.0);
+points[0] = {38.5, -120.2};   // Add points.
+points[1] = {40.7, -120.95};
+points[2] = {43.252, -126.453};
 
-auto res = encoder.encode(); // "~bidP~fsia@_cidP_gsia@_cidP_gsia@"
-encoder.clear(); // Clear the list of points.
+size_t ret; // Save return value for overrun error checking.
 
-// Decode a string using static function.
-auto polyline = PolylineEncoder::decode("~bidP~fsia@_cidP_gsia@_cidP_gsia@");
+ret = Polyline::encodeLine(points, 3, line, sizeof(line)); // encode
+if( ret != 3 ) { ... } // check for sucessful encoding
 
-// Iterate over all points and print coordinates of each.
-for (const auto &point : polyline) {
-    printf("(%f, %f)\n", std::get<0>(point), std::get<1>(point));
-}
+// line now contains "_cidP_gsia@~bidP~fsia@~bidP~fsia@" (null terminated) 
+
+ret = Polyline::decodeLine(line, points, 3) //decode
+if( ret != 3 ) { ... } // check for sucessful decoding
+
+// points contains original coordinates again.
 ```
+For an example of the `StepDecoder` class, look at the `decodeLine()` function which uses the class internally. Similarly, the `encodeLine()` function can be used as a reference for using the `encodePoint()` function.
 
 ## Test
 
-There are unit tests provided for `PolylineEncoder` class. You can find them in the *test/* directory.
-To run them you have to build and run the test application. For doing that you must invoke the following
-commands from the terminal, assuming that compiler and environment are already configured:
+There are unit tests provided in the *test/* directory.
+To run them you have to build and run the test application. For doing that you must invoke the following commands from the terminal, assuming that compiler and environment are already configured:
 
 ##### Linux (gcc)
 ```
 cd test
-g++ -std=c++11 main.cpp -o test
-./test
-```
-
-##### Windows
-```
-cd test
-cl /W4 /EHsc main.cpp /link /out:test.exe
-test
+g++ -std=c++11 test.cpp -o test.out
+./test.out
 ```
 
 ## See Also
