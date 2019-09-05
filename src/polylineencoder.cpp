@@ -35,7 +35,7 @@ static const int    s_asciiOffset = 63;
 static const int    s_5bitMask    = 0x1f; // 0b11111 = 31
 static const int    s_6bitMask    = 0x20; // 0b100000 = 32
 
-static const int s_pointMaxLength = 10;
+static const int s_pointMaxLength = 12;
 
 
 
