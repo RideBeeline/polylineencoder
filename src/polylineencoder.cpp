@@ -2,6 +2,7 @@
 *  MIT License                                                                    *
 *                                                                                 *
 *  Copyright (c) 2017 Vahan Aghajanyan <vahancho@gmail.com>                       *
+*  Copyright (c) 2019 Mark Uckermann <mark.uckermann@gmail.com>                   *
 *                                                                                 *
 *  Permission is hereby granted, free of charge, to any person obtaining a copy   *
 *  of this software and associated documentation files (the "Software"), to deal  *
@@ -22,10 +23,6 @@
 *  SOFTWARE.                                                                      *
 ***********************************************************************************/
 
-#include <tuple>
-#include <cinttypes>
-#include <assert.h>
-#include <cmath>
 
 
 #include "polylineencoder.h"
@@ -36,41 +33,26 @@ static const int    s_asciiOffset = 63;
 static const int    s_5bitMask    = 0x1f; // 0b11111 = 31
 static const int    s_6bitMask    = 0x20; // 0b100000 = 32
 
-void PolylineEncoder::addPoint(double latitude, double longitude)
-{
-    assert(latitude <= 90.0f && latitude >= -90.0f);
-    assert(longitude <= 180.0f && longitude >= -180.0f);
-    
-    printf("added Point (%f,%f)\n",latitude, longitude);
-    m_polyline.emplace_back(latitude, longitude);
-}
+static const int s_pointMaxLength = 10;
 
-std::string PolylineEncoder::encode() const
-{
-    return encode(m_polyline);
-}
+namespace Polyline {
 
 
-int encodePoint( double lat, double lon, char *result)
+int encodePoint( Point* pt, char *result)
 {
     int r_len = 0; // length of result string so far
 
-    double *p_value = &lat;
+    double *p_value = &( pt->lat );
 
-    for (int deg = 0; deg < 2; ++deg)
+    for (int deg = 0; deg < 2; ++deg) // encode both latitude and longitude
     {
-        printf("encode initial value: %f \n", *p_value);
         int32_t e5 = round(*p_value * s_presision); // (2)
 
-        printf("encode step 2: e5=%i \n",e5);
         e5 <<= 1;                                     // (4)
 
-        printf("encode step 4: e5=%i \n",e5);
         if (*p_value < 0) {
             e5 = ~e5;                                 // (5)
         }
-
-        printf("encode step 5: e5=%i \n",e5);
 
         bool hasNextChunk = false;      
 
@@ -87,7 +69,7 @@ int encodePoint( double lat, double lon, char *result)
 
             result[r_len++] = (char)charVar;         // (11)
 
-            if(r_len == POLYLINE_POINT_MAX_LENGTH) 
+            if(r_len >= s_pointMaxLength) 
             {
                 // Error: Point too long. (This should never happen)
                 return 0;
@@ -97,111 +79,103 @@ int encodePoint( double lat, double lon, char *result)
 
         } while (hasNextChunk);
 
-        *p_value = lon;
+        *p_value = &( pt->lon );
     }
     result[r_len] = 0; // zero terminate string
 
     return r_len;
 }
 
-int encodeAll(Point_d *p_points, const size_t num_points, char *result, const size_t size_result)
+int encodeLine(Point *points, const size_t num_points, char *coords, const size_t len_coords)
 {
     // The first segment: offset from (.0, .0)
-    double latPrev = .0;
-    double lonPrev = .0;
-
-    result[0] = 0; // make string size 0
+    Point prev_pt = {0.0, 0.0};
+    Point curr_pt;
+    
+    coords[0] = 0; // make string size 0
     size_t res_len = 0; // length of result string at the moment
 
     int ret = 0; // number of points
 
     // buffer to store point result in
-    char c_point[POLYLINE_POINT_MAX_LENGTH+1];
+    char c_point[s_pointMaxLength+1];
 
     for(size_t pt = 0; pt<num_points; pt++)
     {
-        int len = encodePoint(p_points[pt].lat - latPrev, p_points[pt].lon-lonPrev, c_point);  
+        curr_pt.lat = points[pt].lat - prev_pt.lat;
+        curr_pt.lon = points[pt].lon - prev_pt.lon;
+
+        int len = encodePoint(&curr_pt, c_point);  
         if( len ) 
         {
-            if(res_len + len >= size_result )
+            if(res_len + len >= len_coords) // check to avoid overflows
             {   
                 //Error: ran out of space
-                printf("Error ran out of space\n");
                 return ret;
             }
 
-            printf("encode result 2p: %s\n",c_point);
-
-            strcat(result, c_point);
+            strcat(coords, c_point);
             res_len += len;
             ret++;
 
         }
-        latPrev = p_points[pt].lat;
-        lonPrev = p_points[pt].lon;
+        prev_pt.lat = points[pt].lat;
+        prev_pt.lon = points[pt].lon;
     }
 
     return ret;
 }
 
-int PolylineEncoder::encode(double value, char *result)
-{
-    
-    return 0;
-}
 
-std::string PolylineEncoder::encode(const PolylineEncoder::Polyline &polyline)
-{
+
+// std::string PolylineEncoder::encode(const PolylineEncoder::Polyline &polyline)
+// {
        
 
-    char c_polyline[POLYLINE_MAX_LENGTH+1];
+//     char c_polyline[POLYLINE_MAX_LENGTH+1];
 
     
-    size_t n_points = 0;
+//     size_t n_points = 0;
 
-    Point_d points[20];
+//     Point_d points[20];
 
 
 
-    for (const auto &tuple : polyline)
-    {
-      const double lat = std::get<0>(tuple);
-      const double lon = std::get<1>(tuple);
+//     for (const auto &tuple : polyline)
+//     {
+//       const double lat = std::get<0>(tuple);
+//       const double lon = std::get<1>(tuple);
 
-      Point_d point = {lat, lon };
+//       Point_d point = {lat, lon };
 
-      points[n_points++] = point;
+//       points[n_points++] = point;
 
-    }
+//     }
 
-    encodeAll(points, n_points, c_polyline, POLYLINE_MAX_LENGTH);
+//     encodeAll(points, n_points, c_polyline, POLYLINE_MAX_LENGTH);
 
-    return std::string(c_polyline);
+//     return std::string(c_polyline);
+// }
+
+
+void StepDecoder::start()
+{
+    m_state = WAITING_FOR_FIRST_POINT;
 }
 
-static int32_t pd_result;
-static int pd_shift;
-static Point_d pd_prev_point;
-static int pd_state;
-
-void PolylineEncoder::decodeStart()
+int StepDecoder::step( char c, Point * point )
 {
-    pd_state = WAITING_FOR_FIRST_POINT;
-}
-
-int PolylineEncoder::decodeChar( char c, Point_d * point )
-{
-    switch (pd_state){
+    switch (m_state){
         case WAITING_FOR_FIRST_POINT:
-            pd_prev_point.lat = 0.0;
-            pd_prev_point.lon = 0.0;
-            pd_state = static_cast<DecodingState>(static_cast<int>(pd_state) + 1);
+            m_prev_pt.lat = 0.0;
+            m_prev_pt.lon = 0.0;
+            ++m_state;
         
         case WAITING_FOR_FIRST_LAT_CHAR:
         case WAITING_FOR_FIRST_LON_CHAR:
-            pd_result = 0;
-            pd_shift = 0;
-            pd_state = static_cast<DecodingState>(static_cast<int>(pd_state) + 1);
+            m_result = 0;
+            m_shift = 0;
+            ++m_state;
             break;
         default:
             break;
@@ -209,107 +183,76 @@ int PolylineEncoder::decodeChar( char c, Point_d * point )
 
     // do this for every new character
     c -= s_asciiOffset;      // (10)
-    pd_result |= (c & s_5bitMask) << pd_shift;
-    printf("%i, %i, %i\n",c,pd_result,pd_shift);    
-    pd_shift += s_chunkSize;    // (7)
-
-    printf("%i, %i, %i\n",c,pd_result,pd_shift);    
+    m_result |= (c & s_5bitMask) << m_shift;
+    m_shift += s_chunkSize;    // (7)
+   
     if (c < s_6bitMask) {
 
-        printf("decode before step 5: result=%i \n",pd_result);
-        if (pd_result & 1) {
-            pd_result = ~pd_result;        // (5)
+        if (m_result & 1) {
+            m_result = ~m_result;        // (5)
         }
 
-        printf("decode before step 4: result=%i \n",pd_result);
-        pd_result >>= 1;                // (4)
+        m_result >>= 1;                // (4)
 
-        if( pd_state == DECODING_LATITUDE) {
-            point->lat = pd_prev_point.lat + pd_result / s_presision; // (2)
-            pd_state = WAITING_FOR_FIRST_LON_CHAR;
+        if( m_state == DECODING_LATITUDE) {
+            point->lat = m_prev_pt.lat + m_result / s_presision; // (2)
+            m_state = WAITING_FOR_FIRST_LON_CHAR;
 
-            return 2;
+            return 1;
         }
-        else if( pd_state == DECODING_LONGITUDE) {
-            point->lon = pd_prev_point.lon + pd_result / s_presision; // (2)
-            pd_state = WAITING_FOR_FIRST_LAT_CHAR;
+        else if( m_state == DECODING_LONGITUDE) {
+            point->lon = m_prev_pt.lon + m_result / s_presision; // (2)
+            m_state = WAITING_FOR_FIRST_LAT_CHAR;
 
-            pd_prev_point = *point;
+            m_prev_pt = *point;
             return 0;
         }
 
     }
 
-    return 1;
+    return 2;
 }
 
-int PolylineEncoder::decodeAll(const char *coord, const size_t len_coord, Point_d *points, const size_t max_points)
+int decodeLine(const char *coord, const size_t len_coord, Point *points, const size_t max_points)
 {
-    decodeStart();
+    StepDecoder decoder;
+    decoder.start(); // start decoding process
 
+    // keep track of both array lengths
     size_t num_points = 0;
     size_t ii = 0;
-    Point_d result = {0, 0};
+
+    Point result; // location for step result
+
     while( ii < len_coord && num_points < max_points) {
-        if( !decodeChar(coord[ii], &result) ) {
+
+        // step() returns 0 for a succesful decode.
+        if( !decoder.step(coord[ii], &result) ) {
+            
             points[num_points++] = result;
-            printf("decode result: lat=%f lon=%f\n",result.lat, result.lon);
         }
-        ii++;
+        ii++; //move to the next character
     }
 
     return num_points;
 }
 
-double PolylineEncoder::decode(const std::string &coords, size_t &i)
-{
-    assert(i < coords.size());
 
-    int32_t result = 0;
-    int shift = 0;
-    char c = 0;
-    do {
-        c = coords.at(i++);
-        c -= s_asciiOffset;      // (10)
-        result |= (c & s_5bitMask) << shift;
-        shift += s_chunkSize;    // (7)
-    } while (c >= s_6bitMask);
+// PolylineEncoderdecode(const std::string &coords)
+// {
+//     PolylineEncoder::Polyline polyline;
 
-    printf("decode before step 5: result=%i \n",result);
-    if (result & 1) {
-        result = ~result;        // (5)
-    }
+//     decodeStart();
 
-    printf("decode before step 4: result=%i \n",result);
-    result >>= 1;                // (4)
-
-    // Convert to decimal value.
-    return result / s_presision; // (2)
-}
-
-PolylineEncoder::Polyline PolylineEncoder::decode(const std::string &coords)
-{
-    PolylineEncoder::Polyline polyline;
-
-    decodeStart();
-
-    Point_d points[50];
+//     Point_d points[50];
     
-    int n_points = decodeAll(coords.c_str(), coords.length(), points, 50 );
+//     int n_points = decodeAll(coords.c_str(), coords.length(), points, 50 );
 
-    for (int i=0; i<n_points; i++){
-        polyline.emplace_back(points[i].lat, points[i].lon);
-    }
+//     for (int i=0; i<n_points; i++){
+//         polyline.emplace_back(points[i].lat, points[i].lon);
+//     }
 
-    return polyline;
-}
+//     return polyline;
+// }
 
-const PolylineEncoder::Polyline &PolylineEncoder::polyline() const
-{
-    return m_polyline;
-}
-
-void PolylineEncoder::clear()
-{
-    m_polyline.clear();
 }
