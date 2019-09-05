@@ -22,11 +22,12 @@
 *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  *
 *  SOFTWARE.                                                                      *
 ***********************************************************************************/
+#ifndef POLYLINEENCODER_H
+#define POLYLINEENCODER_H
 
-#include "string.h" // uses strcat()
-
-#define POLYLINE_MAX_LENGTH 500
-#define POLYLINE_POINT_MAX_LENGTH 10 //2 points 5chars per point
+#include <cstring> // uses strcat()
+#include <cmath> // uses round()
+#include <cstdint> // for the uint32_t definition
 
 //! Implements Google's polyline compression algorithm.
 /*!
@@ -45,7 +46,7 @@ struct Point {
  * The result string must have space for 10 characters + null character.
  * Returns the length of the encoded result string.
  */
-int encodePoint( Point* pt, char *result);
+size_t encodePoint( Point* pt, char *result);
 
 /** Encodes a polyline
  * Takes a pointer to a Point structure array of size num_points
@@ -53,18 +54,17 @@ int encodePoint( Point* pt, char *result);
  * Returns the number of points encoded.
  * Check that num_points equals the result for successful encoding of all points.
  */
-int encodeLine(Point *points, const size_t num_points, 
-               char *coords, const size_t len_coords);
+size_t encodeLine(Point *points, size_t num_points, 
+               char *coords, size_t len_coords);
 
 /** Decodes a polyline
- * Takes a c-style array of size len_cord and a Point array 
+ * Takes a c-style string and a Point array 
  * for the result. 
  * Returns the number of points decoded.
  * If the return equals max_points, the decoding might have ended
  * prematurely.
  */
-int decodeLine(const char *coord, const size_t len_coord, 
-               Point *points, const size_t max_points);
+size_t decodeLine(const char *coords, Point *points, const size_t max_points);
 
 class StepDecoder
 {

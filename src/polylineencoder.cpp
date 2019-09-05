@@ -27,6 +27,8 @@
 
 #include "polylineencoder.h"
 
+namespace Polyline {
+
 static const double s_presision   = 100000.0f;
 static const int    s_chunkSize   = 5;
 static const int    s_asciiOffset = 63;
@@ -35,18 +37,17 @@ static const int    s_6bitMask    = 0x20; // 0b100000 = 32
 
 static const int s_pointMaxLength = 10;
 
-namespace Polyline {
 
 
-int encodePoint( Point* pt, char *result)
+size_t encodePoint( Point* pt, char *result)
 {
-    int r_len = 0; // length of result string so far
+    size_t r_len = 0; // length of result string so far
 
     double *p_value = &( pt->lat );
 
     for (int deg = 0; deg < 2; ++deg) // encode both latitude and longitude
     {
-        int32_t e5 = round(*p_value * s_presision); // (2)
+        int32_t e5 = round(*p_value * s_presision);   // (2)
 
         e5 <<= 1;                                     // (4)
 
@@ -69,7 +70,7 @@ int encodePoint( Point* pt, char *result)
 
             result[r_len++] = (char)charVar;         // (11)
 
-            if(r_len >= s_pointMaxLength) 
+            if(r_len > s_pointMaxLength) 
             {
                 // Error: Point too long. (This should never happen)
                 return 0;
@@ -79,14 +80,14 @@ int encodePoint( Point* pt, char *result)
 
         } while (hasNextChunk);
 
-        *p_value = &( pt->lon );
+        p_value = &( pt->lon );
     }
     result[r_len] = 0; // zero terminate string
 
     return r_len;
 }
 
-int encodeLine(Point *points, const size_t num_points, char *coords, const size_t len_coords)
+size_t encodeLine(Point *points, size_t num_points, char *coords, size_t len_coords)
 {
     // The first segment: offset from (.0, .0)
     Point prev_pt = {0.0, 0.0};
@@ -95,7 +96,7 @@ int encodeLine(Point *points, const size_t num_points, char *coords, const size_
     coords[0] = 0; // make string size 0
     size_t res_len = 0; // length of result string at the moment
 
-    int ret = 0; // number of points
+    size_t ret = 0; // number of points
 
     // buffer to store point result in
     char c_point[s_pointMaxLength+1];
@@ -213,10 +214,12 @@ int StepDecoder::step( char c, Point * point )
     return 2;
 }
 
-int decodeLine(const char *coord, const size_t len_coord, Point *points, const size_t max_points)
+size_t decodeLine(const char *coords, Point *points, const size_t max_points)
 {
     StepDecoder decoder;
     decoder.start(); // start decoding process
+
+    size_t len_coords = strlen(coords);
 
     // keep track of both array lengths
     size_t num_points = 0;
@@ -224,10 +227,10 @@ int decodeLine(const char *coord, const size_t len_coord, Point *points, const s
 
     Point result; // location for step result
 
-    while( ii < len_coord && num_points < max_points) {
+    while( ii < len_coords && num_points < max_points) {
 
         // step() returns 0 for a succesful decode.
-        if( !decoder.step(coord[ii], &result) ) {
+        if( !decoder.step(coords[ii], &result) ) {
             
             points[num_points++] = result;
         }
