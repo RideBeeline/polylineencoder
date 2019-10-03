@@ -3,7 +3,7 @@ C-Style C++ implementation of [Google Encoded Polyline Algorithm Format](https:/
 
 ## Installation
 
-No installation required. Just compile *polylineencoder.h(.cpp)* in your project and use `Polyline` namespaced functions and the `StepDecoder` Class.
+No installation required. Just compile *polylineencoder.h(.cpp)* in your project and use `Polyline` namespaced functions and the `Step_decoder` Class.
 
 ## Prerequisites
 
@@ -28,17 +28,17 @@ points[2] = {43.252, -126.453};
 
 size_t ret; // Save return value for overrun error checking.
 
-ret = Polyline::encodeLine(points, 3, line, sizeof(line)); // encode
+ret = Polyline::encode_line(points, 3, line, sizeof(line)); // encode
 if( ret != 3 ) { ... } // check for sucessful encoding
 
 // line now contains "_cidP_gsia@~bidP~fsia@~bidP~fsia@" (null terminated) 
 
-ret = Polyline::decodeLine(line, points, 3) //decode
+ret = Polyline::decode_line(line, points, 3) //decode
 if( ret != 3 ) { ... } // check for sucessful decoding
 
 // points contains original coordinates again.
 ```
-For an example of the `StepDecoder` class, look at the `decodeLine()` function which uses the class internally. Similarly, the `encodeLine()` function can be used as a reference for using the `encodePoint()` function.
+For an example of the `Step_decoder` class, look at the `decode_line()` function which uses the class internally. Similarly, the `encode_line()` function can be used as a reference for using the `encode_point()` function.
 
 ## Test
 

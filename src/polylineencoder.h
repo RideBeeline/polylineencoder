@@ -1,44 +1,45 @@
 /**********************************************************************************
-*  MIT License                                                                    *
-*                                                                                 *
-*  Copyright (c) 2017 Vahan Aghajanyan <vahancho@gmail.com>                       *
-*  Copyright (c) 2019 Mark Uckermann <mark.uckermann@gmail.com>                   *
-*                                                                                 *
-*  Permission is hereby granted, free of charge, to any person obtaining a copy   *
-*  of this software and associated documentation files (the "Software"), to deal  *
-*  in the Software without restriction, including without limitation the rights   *
-*  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell      *
-*  copies of the Software, and to permit persons to whom the Software is          *
-*  furnished to do so, subject to the following conditions:                       *
-*                                                                                 *
-*  The above copyright notice and this permission notice shall be included in all *
-*  copies or substantial portions of the Software.                                *
-*                                                                                 *
-*  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR     *
-*  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,       *
-*  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE    *
-*  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER         *
-*  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,  *
-*  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  *
-*  SOFTWARE.                                                                      *
-***********************************************************************************/
+ *  MIT License                                                                    *
+ *                                                                                 *
+ *  Copyright (c) 2017 Vahan Aghajanyan <vahancho@gmail.com>                       *
+ *  Copyright (c) 2019 Mark Uckermann <mark.uckermann@gmail.com>                   *
+ *                                                                                 *
+ *  Permission is hereby granted, free of charge, to any person obtaining a copy   *
+ *  of this software and associated documentation files (the "Software"), to deal  *
+ *  in the Software without restriction, including without limitation the rights   *
+ *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell      *
+ *  copies of the Software, and to permit persons to whom the Software is          *
+ *  furnished to do so, subject to the following conditions:                       *
+ *                                                                                 *
+ *  The above copyright notice and this permission notice shall be included in all *
+ *  copies or substantial portions of the Software.                                *
+ *                                                                                 *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR     *
+ *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,       *
+ *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE    *
+ *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER         *
+ *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,  *
+ *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  *
+ *  SOFTWARE.                                                                      *
+ ***********************************************************************************/
 #ifndef POLYLINEENCODER_H
 #define POLYLINEENCODER_H
 
-#include <cstring> // uses strcat()
-#include <cmath> // uses round()
+#include <cmath>   // uses round()
 #include <cstdint> // for the uint32_t definition
+#include <cstring> // uses strcat()
 
 //! Implements Google's polyline compression algorithm.
 /*!
   For more details refer to the algorithm definition at
   https://developers.google.com/maps/documentation/utilities/polylinealgorithm
 */
-namespace Polyline {
+namespace polyline
+{
 
 struct Point {
-	double lat; // latitude in degrees
-	double lon; // longitude in degrees
+    double lat; // latitude in degrees
+    double lon; // longitude in degrees
 };
 
 /** Encodes a single point.
@@ -46,7 +47,7 @@ struct Point {
  * The result string must have space for 10 characters + null character.
  * Returns the length of the encoded result string.
  */
-size_t encodePoint( Point* pt, char *result);
+size_t encode_point(Point* pt, char* result);
 
 /** Encodes a polyline
  * Takes a pointer to a Point structure array of size num_points
@@ -54,28 +55,26 @@ size_t encodePoint( Point* pt, char *result);
  * Returns the number of points encoded.
  * Check that num_points equals the result for successful encoding of all points.
  */
-size_t encodeLine(Point *points, size_t num_points, 
-               char *coords, size_t len_coords);
+size_t encode_line(Point* points, size_t num_points, char* coords, size_t len_coords);
 
 /** Decodes a polyline
- * Takes a c-style string and a Point array 
- * for the result. 
+ * Takes a c-style string and a Point array
+ * for the result.
  * Returns the number of points decoded.
  * If the return equals max_points, the decoding might have ended
  * prematurely.
  */
-size_t decodeLine(const char *coords, Point *points, const size_t max_points);
+size_t decode_line(const char* coords, Point* points, const size_t max_points);
 
-class StepDecoder
+class Step_decoder
 {
-public:
-
-    /** Resets the decoding state machine. 
-     * Has to be called before starting the decoding of a new 
+  public:
+    /** Resets the decoding state machine.
+     * Has to be called before starting the decoding of a new
      * polyline string.
      */
     void start();
-    
+
     /** A single step (one character) of the decoding process.
      * Given the next character and a pointer to a Point,
      * this function will attempt to fill the Point.
@@ -85,28 +84,24 @@ public:
      *      2 if the decoding process is unfinshed
      * Call this function repeatedly while checking the return code.
      */
-    int step( char c, Point * point );
+    int step(char c, Point* point);
 
-
-private:
-
+  private:
     // States for the decoding state machine.
-    enum DecodingState
-    {
-        WAITING_FOR_FIRST_POINT = 0,
-        WAITING_FOR_FIRST_LAT_CHAR,
-        DECODING_LATITUDE,
-        WAITING_FOR_FIRST_LON_CHAR,
-        DECODING_LONGITUDE,
+    enum Decoding_state {
+        waiting_for_first_point,
+        waiting_for_first_lat_char,
+        decoding_latitude,
+        waiting_for_first_lon_char,
+        decoding_longitude,
     };
-    int m_state = 0;
+    int state = 0;
 
-    int32_t m_result = 0; // partial result
-    int m_shift = 0; // partial shift as used by the decoding algorithm
-    Point m_prev_pt = {0,0}; // previous point.  
-    
+    int32_t partial_result = 0;
+    int partial_shift = 0; // partial shift as used by the decoding algorithm
+    Point previous_point = {0, 0};
 };
 
-} //Polyline namespace
+} // namespace polyline
 
 #endif // POLYLINEENCODER_H

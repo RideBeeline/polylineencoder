@@ -1,0 +1,15 @@
+﻿---
+BasedOnStyle: LLVM
+AllowShortBlocksOnASingleLine: 'true'
+AllowShortFunctionsOnASingleLine: All
+AllowShortIfStatementsOnASingleLine: 'false'
+BreakBeforeBraces: Linux
+ColumnLimit: '100'
+IndentWidth: '4'
+MaxEmptyLinesToKeep: '1'
+NamespaceIndentation: None
+PointerAlignment: Left
+TabWidth: '4'
+UseTab: Never
+
+...
